@@ -26,12 +26,4 @@ public class PersonVO {
 		this.tel = tel;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet (server + let ) 1) 웹응용프로그램을 만드는 자바기술, 실행된 결과값을 html구조로 돌려준다 2) html은
- * 할 수없는 동적인 움직임을 구현할 수 있다. 3) 자바언어로 작성되어있어 자바의 일반적인 특징을 모두 갖고있다 4) 자동으로 스레딩 처리가
- * 된다 (동시다발적인 클라이언트의 요청에 대응하는것이 용이)
+ * Servlet (server + let ) 
+ * 1) 웹응용프로그램을 만드는 자바기술, 실행된 결과값을 html구조로 돌려준다 
+ * 2) html은 할 수없는 동적인 움직임을 구현할 수 있다. 
+ * 3) 자바언어로 작성되어있어 자바의 일반적인 특징을 모두 갖고있다 
+ * 4) 자동으로 스레딩 처리가된다 (동시다발적인 클라이언트의 요청에 대응하는것이 용이)
  */
 @WebServlet("/hello.do") // url 매핑 ( 다른 서블릿과 동일한 이름으로 작성하면 X)
 public class Ex1_HelloAction extends HttpServlet {
