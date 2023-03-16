@@ -28,7 +28,8 @@ public class sawonDAO {
 		return single;
 	}
 	////////////////////////////////////////////
-	//사원테이블 조회
+	//사원 정보를 조회하기 위한 메서드 _list로 생성
+	// 제너릭 타입으로는 VO넣어주기! //DAO는 들어가는 경우가 없다
 	    public List<sawonVO> selectList() {
 
 		List<sawonVO> list = new ArrayList<sawonVO>();
