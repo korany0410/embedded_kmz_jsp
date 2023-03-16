@@ -115,7 +115,47 @@ public int insert(FriendVO vo) {
 	return res;
 }
 
-	
+	// 친구 정보 삭제 메서드
+public int delete(int no) {
+	// TODO Auto-generated method stub
+	int res = 0;
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+
+	String sql = "delete from Friend where no=?";
+
+	try {
+		//1.Connection획득
+		conn = DBservice.getInstance().getConnection();
+		//2.명령처리객체 획득
+		pstmt = conn.prepareStatement(sql);
+
+		//3.pstmt parameter 채우기
+		pstmt.setInt(1, no);
+
+		//4.DB로 전송(res:처리된행수)
+		res = pstmt.executeUpdate();
+
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	} finally {
+
+		try {
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return res;
+}
+
+
 
 }
 

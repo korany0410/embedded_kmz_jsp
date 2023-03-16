@@ -14,6 +14,15 @@ List<FriendVO> friend_list = dao.selectList();
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+function del(no) {
+	if (!confirm("정말 삭제하시겠어용?")) {
+		return; //안지울거면 밑으로 못내려가게
+	}
+	location.href = "friend_del.jsp?no=" + no; //get방식으로 보내기
+}
+
+</script>
 </head>
 <body>
 	<table border="1">
@@ -34,6 +43,15 @@ List<FriendVO> friend_list = dao.selectList();
 			<td><%=vo.getName()%></td>
 			<td><%=vo.getAge()%></td>
 			<td><%=vo.getTel()%></td>
+			
+			<td><input type="button" value="삭제"
+				onclick="del('<%=vo.getNo()%>');">
+				 <input type="button" value="수정" 
+				 onclick="modify('<%= vo.getNo()%>',
+								 '<%= vo.getName()%>',
+								 '<%= vo.getAge()%>',
+								 '<%= vo.getTel()%>';">
+			</td>
 			
 		</tr>
 		<%
