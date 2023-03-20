@@ -23,10 +23,12 @@
     	TestVO vo1 = new TestVO();
     	vo1.setName("일길동");
     	vo1.setAge(11);
+    	
 		//vo2
     	TestVO vo2 = new TestVO();
     	vo2.setName("이길동");
     	vo2.setAge(22);
+    	
     	//scope에 vo를 저장한다
     	request.setAttribute("vo", vo1);
     	
@@ -35,6 +37,7 @@
     	List<TestVO> list = new ArrayList<>();
     	list.add(vo1);
     	list.add(vo2);
+    	
     	//scope에 ArrayList를 저장한다
     	request.setAttribute("arr", list);
     	

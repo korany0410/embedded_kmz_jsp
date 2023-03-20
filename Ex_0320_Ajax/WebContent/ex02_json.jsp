@@ -14,7 +14,7 @@
 <script type="text/javascript">
 
 	document.write("<h3>1.기본형태의 json구조</h3>");
-	//기본형태의 json구조 (한사람의 정보만 넣을 수 있음)
+	//기본형태의 json구조 (한사람의 정보)
 	let p = {'name':'홍길동', 'age':30, 'tel':'010-123-4567'};
 	document.write( p.name + " / " + p.age + " / " + p.tel );
 	
@@ -37,7 +37,7 @@
 	let course = {'name':'임베디드웹개발', 'start':'2023-01-01', 'end':'2023-06-01',
 			//일반 json내부에 배열 형태를 넣음	
 			'sub':['java', 'web', 'jsp'],
-			'student':[{'name':'hong','age':20},
+			'student':[	{'name':'hong','age':20},
 						{'name':'kim','age':24},
 						{'name':'park','age':28}
 				]
@@ -60,6 +60,65 @@
 	for(let i =0; i < course.student.length; i++){
 		document.write(course.student[i].name + " / " + course.student[i].age + "<br>" );
 	}
+	
+	
+	document.write("<hr>");
+	
+	let tech = { 'brand':[{'name':'apple','product':'phone'},
+						{'name':'samsung','product':'tabletPC'}
+						]
+				 }
+	
+	for(let i = 0; i< tech.brand.length; i++){
+		document.write(tech.brand[i].name +" : " 
+				+ tech.brand[i].product + "<br>");
+	}
+	
+	
+	document.write("<hr>");
+	
+	let restaurant = {
+			'type':['korean', 'japanese', 'american'] , 
+			'local':[{'local':'서울','name':'태극당'},
+					{'local':'대전','name':'성심당'},
+					{'local':'군산','name':'이성당'}
+			]
+	}
+	
+	for(let i=0; i<restaurant.type.length; i++){
+		document.write(restaurant.type[i] + "<br>");
+	}
+	
+	for(let i=0; i<restaurant.local.length; i++){
+		document.write(restaurant.local[i].local +" : " + restaurant.local[i].name + "<br>");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	</script>

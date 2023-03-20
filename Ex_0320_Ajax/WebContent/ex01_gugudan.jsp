@@ -13,8 +13,8 @@
 <title>Insert title here</title>
 <!-- Ajax사용을 위해 미리 준비해둔httpRequest.js를 참조  -->
  <!-- Ajax를 사용하고싶을때 넣어줘야하는 스크립트 -->
-<script src="js/httpRequest.js"></script> 
-<script type="text/javascript">
+<script src="js/httpRequest.js"></script>
+<script>
 
 	function send() {
 		//form태그가 없어서 비어있는 함수로 만든다.
@@ -47,9 +47,7 @@
 		let data = xhr.responseText; 
 		//alert(data);
 		document.getElementById("disp").innerHTML = data;
-		}
-		
-		
+		}	
 	}
 	
 </script>
