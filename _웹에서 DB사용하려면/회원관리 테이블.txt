@@ -1,0 +1,45 @@
+--시퀀스
+create sequence seq_myuser_idx;
+
+--회원테이블
+create table myuser(
+	idx Number(3) primary key, --회원일련번호
+	name VARCHAR2(50), --이름
+	id VARCHAR2(50) unique, --아이디 (중복방지)
+	pwd VARCHAR2(50), --비번
+	email VARCHAR2(50), --이메일
+	addr VARCHAR2(200) --주소
+);	
+
+
+--샘플데이터
+insert into myuser values(
+	seq_myuser_idx.nextVal, '일길동', 'hong1111', '1111', 'h1@gmai.com', '서울시 양천구'
+);
+commit;
+update myuser set email = h1@gmail.com;
+commit;
+
+
+insert into myuser values(
+	seq_myuser_idx.nextVal, '곰쥐', 'korany', '2222', 'korany@gmail.com', '서울시 양천구'
+);
+insert into myuser values(
+	seq_myuser_idx.nextVal, '파리상수', 'parisSangsoo', '3333', 'sangssI@gmail.com', '서울시 서대문구'
+);
+insert into myuser values(
+	seq_myuser_idx.nextVal, '구욷치즈', 'GoodCheese92', '4444', 'goodcheese@gmail.com', '인천 광역시 중구'
+);
+insert into myuser values(
+	seq_myuser_idx.nextVal, '유미의세포들', 'PrincessYumi', '5555', 'yumicells@gmail.com', '고양시 일산 서구'
+);
+insert into myuser values(
+	seq_myuser_idx.nextVal, '살구귀여워', 'SiYoony', '6666', '푱푱이@gmail.com', '인천 광역시 중구'
+);
+insert into myuser values(
+	seq_myuser_idx.nextVal, '요정진영이', 'ElfJinYoung', '7777', '진영이@gmail.com', '경기도 김포시'
+);
+commit;
+
+update myuser set addr = '경기도 김포시' where name = '요정진영이';
+commit;

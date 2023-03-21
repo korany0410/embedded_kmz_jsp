@@ -1,0 +1,28 @@
+--시퀀스 생성
+create sequence seq_friend_no;
+
+--테이블 생성
+create table friend (
+	no number(3) primary key,
+	name varchar2(10),
+	age number(3),
+	tel varchar2(20)
+);_
+
+--테이블 참조데이터 생성
+insert into friend values ( seq_friend_no.nextVal, '뽀로로', 10, '010-1111-1111');
+insert into friend values ( seq_friend_no.nextVal, '둘리', 15, '010-2222-2222');
+insert into friend values ( seq_friend_no.nextVal, '피카츄', 10, '010-3333-3333');
+commit;
+
+update friend set tel = '010-1111-1111'
+where no = 1;
+commit;
+
+update friend set tel = '010-2222-2222'
+where no = 2;
+commit;
+
+update friend set tel ='010-3333-3333'
+where no = 3;
+commit;

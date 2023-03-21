@@ -1,0 +1,25 @@
+--시퀀스 생성
+create sequence seq_sungtb_no;
+
+--테이블 생성
+create table SUNGTB(
+	no NUMBER(3) primary key, --일련번호
+	name VARCHAR2(20) not null, --이름
+	kor NUMBER(3), --국어
+	eng NUMBER(3), --영어
+	mat NUMBER(3) --수학	
+);
+
+--샘플데이터
+insert into SUNGTB values(seq_sungtb_no.nextVal, '일길동', 77, 88, 99);
+insert into SUNGTB values(seq_sungtb_no.nextVal, '이길동', 97, 98, 99);	
+insert into SUNGTB values(seq_sungtb_no.nextVal, '삼길동', 65, 76, 82);
+commit;		
+
+--총점, 평균, 순위가 추가된 조회 view생성	
+create or replace view SUNGTB_VIEW as
+select s.*, (kor + eng + mat) tot,
+	round((kor + eng + mat)/3, 1) avg,
+	rank() over( order by (kor+eng+mat) desc) rank
+FROM (select *  from SUNGTB) s
+order by no;	

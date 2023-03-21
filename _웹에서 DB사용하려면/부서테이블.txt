@@ -1,0 +1,13 @@
+CREATE table DEPT(
+	deptno NUMBER(3)	primary key, --부서번호
+	dname VARCHAR2(10), --부서이름
+	loc VARCHAR2(10)	--부서위치
+);
+
+-- 샘플데이터
+insert into DEPT values(10,'총무부','101');
+insert into DEPT values(20,'영업부','202');
+insert into DEPT values(30,'전산실','303');
+insert into DEPT values(40,'관리부','404');
+insert into DEPT values(50,'경리부','505');
+commit;
