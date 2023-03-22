@@ -170,7 +170,47 @@ public class MemberDAO {
 		return vo;
 	}
 	
-	
-	
+	// 4. 회원 삭제  delete 메서드 만들기 -------------------------------------------
+	// 정수타입으로 파라미터 받기
+	public int delete(int idx ) {
+		// TODO Auto-generated method stub
+		int res = 0;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		String sql = "delete from myuser where idx=?";
+
+		try {
+			//1.Connection획득
+			conn = DBservice.getInstance().getConnection();
+			//2.명령처리객체 획득
+			pstmt = conn.prepareStatement(sql);
+
+			//3.pstmt parameter 채우기
+			//물음표 채우기
+			pstmt.setInt(1, idx);
+			//4.DB로 전송(res:처리된행수)
+			// 잘 지워졌으면 res=1
+			// 안지워졌으면 res=0
+			res = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
 	
 }

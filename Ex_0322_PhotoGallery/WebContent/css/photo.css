@@ -1,0 +1,25 @@
+@charset "UTF-8";
+*{margin:0; padding:0;}
+
+h1{text-align:center;
+   text-shadow: 3px 3px 5px gray;
+   color:white; }
+   
+#main_box{ width:800px;
+         margin:0 auto; }
+#photo_box{width:710px;
+         height:665px;
+         border:1px solid blue;
+         box-shadow:5px 5px 10px gray;
+         padding : 10px;
+         margin : 0 auto;
+         overflow : auto ;}
+.photo_type{ width : 150px;
+          height : 200px;
+          border : 1px solid green;
+          float : left;
+          margin : 10px; }         
+.photo_type img { display : block;
+              margin: 0 3px;
+              width : 98%;
+              height : 150px;}   
