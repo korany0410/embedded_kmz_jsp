@@ -9,10 +9,10 @@
 <script src="js/httpRequest.js"></script>
 
 <script>
-	function send(f) {
+	function send(f) {                                                   
 		let id = f.id.value;
 		let pwd = f.pwd.value;
-		
+		                       
 		//유효성체크 했다치고
 		
 		var url = "login.do";
