@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<!-- JDNI( JAVA NAMING DIRECTORY INTERFACE)
+	DB연결을 위한 접속 정보 및 최대 접속자 수 등을 설정하기 위한 참조파일
+
+ -->
+	<Resource 
+	        auth="Container" 
+      		name="jdbc/oracle_test"
+      		type="javax.sql.DataSource"
+      		driverClassName="oracle.jdbc.driver.OracleDriver"
+      		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+      		url="jdbc:oracle:thin:@localhost:1521:xe"
+      		username="dbms_test" password="1111" 
+      		maxActive="10" maxIdle="10" maxWait="1"/>
+      		<!-- maxActive : 최대 연결 수 
+      				- 현재 프로그램에서 db에 연결하는 시간이 만약 1초라면 10명이 db접근을 시도할 경우
+      				  10번째 사용자는 10초 뒤에나 정보를 받을 수 있다. 이렇게 되면 뒤에 접근하는 유저는
+      				     너무 오랜시간을 대기해야하므로, 내부적으로 스레딩 처리를 통해서 10개 만큼의 공간을 미리 확보.
+      				     이와같이 대기시간을 최소화 하여 db에 효율적으로 접근할 수 있도록 하는 개념을
+      				  DBCP(database connection pool) 라고 한다.
+      			 maxWait : 대기시간
+      		-->
+</Context>

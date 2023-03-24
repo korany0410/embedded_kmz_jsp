@@ -14,13 +14,8 @@ create table myuser(
 
 --샘플데이터
 insert into myuser values(
-	seq_myuser_idx.nextVal, '일길동', 'hong1111', '1111', 'h1@gmai.com', '서울시 양천구'
+	seq_myuser_idx.nextVal, '일길동', 'hong1111', '1111', 'h1@gmail.com', '서울시 마포구'
 );
-commit;
-update myuser set email = h1@gmail.com;
-commit;
-
-
 insert into myuser values(
 	seq_myuser_idx.nextVal, '곰쥐', 'korany', '2222', 'korany@gmail.com', '서울시 양천구'
 );
@@ -41,5 +36,3 @@ insert into myuser values(
 );
 commit;
 
-update myuser set addr = '경기도 김포시' where name = '요정진영이';
-commit;

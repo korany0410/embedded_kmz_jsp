@@ -17,6 +17,41 @@
 <title>멤버리스트</title>
 <!-- Ajax 사용을 위한 js를 등록해준다 -->
 <script src="js/httpRequest.js"></script>
+<script>
+	function del(idx) {
+		
+		//local.href='del.do?idx='+idx
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return;
+		}
+		//idx를 ajax를 통해서 서버측으로 전달
+		var url = "member_del.do"
+		var param = "idx="+idx;
+		
+		//url과 파람을 가지고 
+		sendRequest(url, param, resultFn, "GET");
+		
+	}
+	function resultFn() {
+		//콜백메서드
+		if(xhr.readyState == 4 && xhr.status == 200 ){
+			
+			var data = xhr.responseText;
+			// data --> "no" or "yes"
+			
+			if(data == 'yes'){
+				alert("삭제성공");
+				//멤버리스트 서블릿으로 다시 위치를 이동시켜서 실행시켜줘
+				//location.href="member_list.do"; <--이렇게써도 되고 아래방식을 써도됨
+				//0은 지금 내 자신, -1은 전페이지
+				history.go(0);
+			}else{
+				alert("삭제실패");
+			}
+		}
+	}
+</script>
+
 </head>
 <body>
 	<table border="1">

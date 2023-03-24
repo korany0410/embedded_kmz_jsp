@@ -8,49 +8,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.DBservice;
-import vo.MemberVO;
+import vo.PhotoVO;
 
-public class MemberDAO {
-	// single-ton pattern: 
+public class PhotoDAO {
+	// single-ton pattern:
 	// 객체1개만생성해서 지속적으로 서비스하자
-	static MemberDAO single = null;
+	static PhotoDAO single = null;
 
-	public static MemberDAO getInstance() {
-		//생성되지 않았으면 생성
+	public static PhotoDAO getInstance() {
+		// 생성되지 않았으면 생성
 		if (single == null)
-			single = new MemberDAO();
-		//생성된 객체정보를 반환
+			single = new PhotoDAO();
+		// 생성된 객체정보를 반환
 		return single;
 	}
-	
-	//1. 전체회원 조회--------------------------------------------------------
-	public List<MemberVO> selectList() {
 
-		List<MemberVO> list = new ArrayList<MemberVO>();
+	// 전체 목록을 조회하기 위해 _selectList
+	public List<PhotoVO> selectList() {
+
+		List<PhotoVO> list = new ArrayList<PhotoVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from myuser order by idx";
+		String sql = "select * from PHOTO order by idx DESC";
 
 		try {
-			//1.Connection얻어온다
+			// 1.Connection얻어온다
 			conn = DBservice.getInstance().getConnection();
-			//2.명령처리객체정보를 얻어오기
+			// 2.명령처리객체정보를 얻어오기
 			pstmt = conn.prepareStatement(sql);
 
-			//3.결과행 처리객체 얻어오기
+			// 3.결과행 처리객체 얻어오기
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				MemberVO vo = new MemberVO();
-				//현재레코드값=>Vo저장
+				PhotoVO vo = new PhotoVO();
+				// 현재레코드값=>Vo저장
 				vo.setIdx(rs.getInt("idx"));
-				vo.setName(rs.getString("name"));
-				vo.setId(rs.getString("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setFilename(rs.getString("filename"));
 				vo.setPwd(rs.getString("pwd"));
-				vo.setEmail(rs.getString("email"));
-				vo.setAddr(rs.getString("addr"));
-				//ArrayList추가
+				vo.setIp(rs.getString("ip"));
+				vo.setRegidate(rs.getString("regidate"));
+				// ArrayList추가
 				list.add(vo);
 			}
 
@@ -75,32 +75,29 @@ public class MemberDAO {
 		return list;
 	}
 
-	
-	//2. 회원 추가-----------------------------------------------------------
-	public int insert(MemberVO vo) {
+	// 사진 추가하기
+	public int insert(PhotoVO vo) {
 		// TODO Auto-generated method stub
 		int res = 0;
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
-		String sql = "insert into myuser values( seq_myuser_idx.nextVal, ?,?,?,?,? )";
+		String sql = "insert into photo values(seq_photo_idx.nextVal, ?, ? , ? , ? , sysdate)";
 
 		try {
-			//1.Connection획득
+			// 1.Connection획득
 			conn = DBservice.getInstance().getConnection();
-			//2.명령처리객체 획득
+			// 2.명령처리객체 획득
 			pstmt = conn.prepareStatement(sql);
 
-			//3.pstmt parameter 채우기
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getId());
+			// 3.pstmt parameter 채우기
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getFilename());
 			pstmt.setString(3, vo.getPwd());
-			pstmt.setString(4, vo.getEmail());
-			pstmt.setString(5, vo.getAddr());
+			pstmt.setString(4, vo.getIp());
 
-			
-			//4.DB로 전송(res:처리된행수)
+			// 4.DB로 전송(res:처리된행수)
 			res = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -121,16 +118,15 @@ public class MemberDAO {
 		return res;
 	}
 	
-	
-	//3. 아이디 중복체크-(_select_one) :vo타입으로 반환---------------------------------------
-	public MemberVO selectOne(String id) {
+	//삭제할 게시물의 파일명 가져오기 _select one으로 만들기 (반환형이 다름 vo로 반환이 됨)
+	public PhotoVO selectOne(int idx) {
 
-		MemberVO vo = null;
+		PhotoVO vo = null;
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from myuser where id=?";
+		String sql = "select * from photo where idx=?";
 
 		try {
 			//1.Connection얻어온다
@@ -139,14 +135,15 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			//3.pstmt parameter 설정
-			pstmt.setString(1, id);
+			pstmt.setInt(1, idx);
 			//4.결과행 처리객체 얻어오기
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				vo = new MemberVO();
+				vo = new PhotoVO();
 				//현재레코드값=>Vo저장
-
+				//파일 이름만 가져오면 됨!
+				vo.setFilename(rs.getString("filename"));
 			}
 
 		} catch (Exception e) {
@@ -170,16 +167,15 @@ public class MemberDAO {
 		return vo;
 	}
 	
-	// 4. 회원 삭제  delete 메서드 만들기 -------------------------------------------
-	// 정수타입으로 파라미터 받기
-	public int delete(int idx ) {
+	//데이터 삭제
+	public int delete(int idx) {
 		// TODO Auto-generated method stub
 		int res = 0;
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
-		String sql = "delete from myuser where idx=?";
+		String sql = "delete from photo where idx=?";
 
 		try {
 			//1.Connection획득
@@ -188,11 +184,8 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			//3.pstmt parameter 채우기
-			//물음표 채우기
 			pstmt.setInt(1, idx);
 			//4.DB로 전송(res:처리된행수)
-			// 잘 지워졌으면 res=1
-			// 안지워졌으면 res=0
 			res = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -213,4 +206,62 @@ public class MemberDAO {
 		return res;
 	}
 	
+	
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
