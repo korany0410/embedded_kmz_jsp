@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="g">
+
+	<!--셀렉트 하고싶으면 셀렉트 태그를 만든다 -->
+	<!-- 셀렉트 태그안에 무조건 들어가야할 내용! 결과값을 어디에 담아야하는지를 지정해줘야함
+	 resultType="패키지명.클래스명" 을 리스트로 자동으로 넣어줌
+	 SawonDAO로 전달해줌 -->
+	<select id="gogek_list" resultType="vo.GogekVO">
+
+		<!-- <mapper>안에선 절대 ;금지 -->
+		select * from gogek
+
+	</select>
+	
+	<!-- <select>와 다르게 int로 받는 태그들은  resultType="vo.GogekVO"를 넣지 않는다 -->
+	<!-- 대신 파라미터 타입을 반드시 기입해야한다! -->
+	<delete id="gogek_del" parameterType="int" >
+		<!-- 한개짜리 파라미터를 받을땐 #{ } -->
+		delete from gogek where gobun = #{ idx }
+		<!-- idx내부의 값을 가지고 돌아감 -->	
+	</delete>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

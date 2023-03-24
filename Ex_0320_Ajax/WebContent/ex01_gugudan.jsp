@@ -41,7 +41,7 @@
 		// 200 : 이상없음
 		// 404 : 경로 없음, 500 : 서버 에러
 		
-		// 필수적으로 사용
+		// 필수적으로 사용                                                                                                                                                                                            
 		if( xhr.readyState == 4 && xhr.status == 200 ){
 		// 결과를 가지고 돌아온 데이터를 읽어온다.
 		let data = xhr.responseText; 

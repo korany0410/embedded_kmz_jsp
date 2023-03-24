@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- DB접속 및 앞으로 사용할 mapper를 정의하는 설정파일 -->
+<configuration>
+	<environments default="">
+		<environment id="">
+			<transactionManager type="JDBC" />
+			<dataSource type="JNDI"> 
+				<property name="data_source" 
+				value="java:comp/env/jdbc/oracle_test" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="config/mybatis/mapper/gogek.xml" />
+		<!-- 나중에 추가하려고 없는 dept.xml을 mapping 미리 해놔도 오류남 -->
+		<!-- <mapper resource="config/mybatis/mapper/dept.xml" /> -->
+	</mappers>
+</configuration>
