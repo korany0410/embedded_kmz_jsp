@@ -13,11 +13,27 @@
 		f.action = "gogek_del.do?idx="+f.idx.value;
 		f.submit();
 	}
+	
+	function search() {
+		let addr_search = document.getElementById("addr_search").value;
+		
+		location.href="gogek_search.do?addr="+addr_search;
+		
+	}
 </script>
 </head>
 <body>
 	<table border="1">
 		<caption>:::고객목록:::</caption>
+		<tr>
+			<td colspan="6" align="center">
+				<input type="button" value="등록" onclick="location.href='insert_form.jsp'">
+				
+				<input placeholder="검색할 지역을 입력하세요" id="addr_search">
+		
+				<input type="button" value="검색" onclick="search();">
+			</td>
+		</tr>
 		<tr>
 			<th>고객번호</th>
 			<th>고객명</th>
@@ -26,7 +42,7 @@
 			<th>고객담당자</th>
 			<th>비고</th>
 			<!-- 추후 삭제버튼 -->
-
+			
 		</tr>
 	<!-- 변수이름, 포워딩을 통해 받은 키값 -->
 		<c:forEach var="vo" items="${ list }">

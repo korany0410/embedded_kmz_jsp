@@ -1,0 +1,111 @@
+[ 0327_ 게시판 만들기 ]
+Ex_0327_Board
+
+
+1. vo에서 BoardVO 만들기
+	정보들 넣은 뒤 getter&setter 생성하기
+
+2. config.mybatis.mapper/board.xml로 이름 변경
+	namespace="b"로 변경
+
+3. sqlMapConfig.xml에서 board.xml을 사용할 수 있게 참조시켜둠
+	<mapper resource="config/mybatis/mapper/board.xml" />
+	<typeAliases>별칭짓기
+
+4. BoardDAO 만들기
+	1) _singleton준비해두기
+	2) factory 준비
+	3) 생성자 만들기
+		- 어떤 정보를 담고있는지에 대한 factory 생성
+	4) 게시판에 보여질 모든 게시물 조회
+		-select 리스트 구조로 제너릭은 vo
+		- 매퍼에서 전체목록조회 요청
+		- 여러개의 목록을 가져올것을 요청을 list에 담기
+		- db접근이 완료된 세션은 반드시 닫아주기
+		- list 반환하기
+	
+5. board.xml에서 
+	1) 전체게시물 조회
+		resultType필수
+		 --> sqlMapConfig.xml에서 만들어둔 vo.BoardVO대신 board별칭 사용하기
+		쿼리문 작성 
+
+6. BoardListAction 서블릿 만들기 ( 매핑명 /list.do )
+	1) 전체 목록 조회
+	2) DB에서 받아온 list를 바인딩
+	3) 포워딩 ("board_list.jsp") 에서 보여질 수 있게
+
+7. board_list.jsp 만들기
+	1) for-Each문 사용을 위해 상단에 먼저 jstl/core미리 준비
+	2) table만들기
+		-제목을 클릭했을 때 view.do?idx=${vo.idx} 서블릿으로 이동을 위해 링크를 걸어두기
+		primary key인 idx를 파라미터로 가져감
+		<td><a href="view.do?idx=${vo.idx}">${ vo.subject}</a></td>
+	3)  for-Each문 만들기 <c:forEach var="vo" items="${list}">
+		
+==========================================
+새글 등록하기 만들기 
+
+0. board_list.jsp
+	onclick="location.href='insert_form.jsp'" 
+
+1. insert_form.jsp에서 form만들기
+	onclick="send(this.form)">
+	function send(f)--> f.action = "insert.do"; 
+	작성된 파라미터를 서블릿으로 옮김
+	파라미터를 옮길 수단에 대해 생각하기
+		
+
+2. BoardInsertAction 서블릿 만들기 ( 매핑명/insert.do )
+	1) 파라미터 받아서 서블릿의 변수에 담기 / utf-8
+	2)  vo로 포장해서 데이터베이스에 전달해야함	
+		메서드 필요 -> 데이터베이스 객체 만들고 메서드로 mapper에게 파라미터를 보내는게 DAO!
+	
+
+
+3. BoardDAO에서 게시물 등록 메서드 만들기
+	int res = sqlSession.insert("b.board_ins",vo);
+	,매개변수 받을거 	vo
+
+4. 다시 서블릿으로 돌아와서
+	BoardDAO.getInstance().insert(vo);
+	포장한 내용이 db에 넘어감
+
+	--> 데이터베이스에 넘어가면 화면에 다시 보여지게 해야함
+	response.sendRedirect("list.do");
+
+
+5. 매퍼로 이동 board.xml에서 
+	2) 게시물 등록
+		<insert id="board_ins" parameterType=""></insert>
+		nsert into board values( seq_board_idx.nextVal, 
+		 #{name}, #{subject}, #{content}, #{pwd}, #{ip}, sysdate, 0,seq_board_idx.currVal, 0, 0  )
+
+	화면에 보여져야할 모든 내용을 적어줌
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

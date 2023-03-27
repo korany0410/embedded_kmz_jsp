@@ -1,3 +1,6 @@
+--시퀀스
+create sequence seq_gogek_idx;
+
 --고객테이블
 CREATE table gogek(
 	gobun NUMBER(3)	primary key,  --고객번호

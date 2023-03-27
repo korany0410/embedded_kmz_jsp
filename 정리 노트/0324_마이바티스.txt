@@ -84,6 +84,62 @@ sawon.xml넣기
 
 
 
+================================
+0327
+
+고객테이블에 시퀀스를 만들어서 start database에 넣어준다
+	create sequence seq_gogek_idx;
+
+gogek_list.jsp에 돌아와서 고객을 추가하는 버튼을 생성한다
+	추가 버튼 클릭 시 아래의 insert_form.jsp로 연결되도록
+
+insert_form.jsp 만들어준다
+	//버튼을 눌렀을때 insert서블릿으로 보내기
+	f.action = "insert_form.do";
+
+
+insert_form.do 매핑을 가지고있는 서블릿 만들기 (GogekInsertAction)
+	send함수에서 넘겨준 name, addr, jumin, godam이 파라미터 받기
+	// insert_from.do?name=홍길동&addr=서울시 관악구&jumin=801111....&godam=10;
+		
+	int godam= Integer.parseInt(request.getParameter("godam"));
+
+	//정보들을 vo로 묶어서 dao에 전달
+		GogekVO vo = new GogekVO();
+
+	GogekDAO.getInstance().insert(vo);
+
+
+Gogek DAO에서 고객추가하기
+	//sqlSession mapper로 전달핳 수있는 파라미터는 무조건 무조건 한개!:vo
+		int res = sqlSession.insert("g.gogek_ins", vo);
+		response.sendRedirect("gogeklist.do");
+
+
+
+gogek.xml에서 db의 정보 연결시켜줌
+
+
+
+==============
+gogek_list.jsp에 돌아와서 등록버튼 옆에 지역 검색 만들기
+	<input placeholder="검색할 지역을 입력하세요" id="addr_search">
+
+	search메서드 만들기
+		location.href="gogek_search.do?addr="+addr_search;
+
+gogek_search.do 서블릿 만들기 (SearchAction)
+	
+
+
+
+
+
+
+
+
+
+
 
 
 

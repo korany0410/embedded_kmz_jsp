@@ -1,0 +1,85 @@
+--시퀀스
+create sequence seq_board_idx;
+
+
+--테이블 
+create table board(
+	idx NUMBER(3) primary key, 
+	name VARCHAR2(100), --이름
+	subject VARCHAR2(200), --제목
+	content CLOB, --내용
+	pwd VARCHAR2(100), --비번
+	ip VARCHAR2(20), --ip
+	regdate DATE, --작성일자
+	readhit NUMBER(4), --조회수
+	--게시판 운영을 위해 필요한 중요한 컬럼들
+	ref NUMBER(3), --레퍼런스 기준글(댓글을 달 원본글)의 번호
+	step NUMBER(3), --댓글 순서 (수직)
+	depth NUMBER(2)	--댓글의 깊이(수평)	
+);
+
+
+--샘플 데이터 (메인글)
+insert into BOARD values(
+	seq_board_idx.nextVal,
+	'고라니',
+	'제목',
+	'내용',
+	'1111',
+	'192.1.1.1',
+	sysdate,
+	0,
+	seq_board_idx.currVal, --ref (현재 시퀀스)
+	0, --step
+	0 --depth	
+);
+commit;
+
+--샘플데이터 (댓글) 메인글의 insert코드를 그대로 가지고 있어도 된다
+insert into BOARD values(
+	seq_board_idx.nextVal,
+	'고라니2',
+	'댓글 제목',
+	'댓글 내용',
+	'1111',
+	'192.1.1.1',
+	sysdate,
+	0,
+	1, --ref (현재 시퀀스)
+	1, --step
+	1 --depth	
+);
+commit;
+
+--샘플데이터 (대댓글) 
+insert into BOARD values(
+	seq_board_idx.nextVal,
+	'고라니3',
+	'대댓글 제목',
+	'대댓글 내용',
+	'1111',
+	'192.1.1.1',
+	sysdate,
+	0,
+	1, --ref (현재 시퀀스)
+	2, --step
+	2 --depth	
+);
+commit;
+
+--게시판 조회
+select * from BOARD order by REF desc, STEP;
+
+
+
+--게시글 업로드 구조
+idx (내림차순)	ref	step(오름차순) 			depth
+
+3. 반갑		3	0				0
+2. hi		2	0				0 
+1. 안녕		1	0				0 ( 원본글은 step, depth가 무조건 0 )	
+    ㄴ 6. 또또댓	1	1				1
+           ㄴ 7. 대댓	1	2				2 (대댓글은 depth = 2 )
+    ㄴ 5. 또댓	1	1->2 -->3 (대댓또한 step변경필요) 	1
+    ㄴ 4. 댓글	1	1->2->3 -->4 로 업데이트		1 ( 댓글은 무조건 depth = 1 )
+
