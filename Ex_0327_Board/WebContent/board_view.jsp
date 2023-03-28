@@ -11,11 +11,11 @@
 	}
 
 	
-/* 	function modify( c_pwd ) {
+function modify( pwd ) {
 		
-		let pwd = document.getElementById( ${vo.pwd} ).value;
+		let c_pwd = document.getElementById( "c_pwd" ).value;
 		
-		if ( pwd == '') {
+		if ( c_pwd == '') {
 			alert("비밀번호를 입력하세요.")	;
 			return;
 		}else if( pwd != c_pwd ){
@@ -26,7 +26,7 @@
 			f.action = "modify.do";
 			f.submit();
 		}
-	} */
+	}
 </script>
 </head>
 <body>
@@ -77,7 +77,7 @@
 					<img src="img/btn_delete.gif" onclick="del();">
 
 					<!-- 수정 -->
-					<img src="img/btn_modify.gif" onclick="modify();">
+					<img src="img/btn_modify.gif" onclick="modify(${vo.pwd});">
 				</td>
 			</tr>
 

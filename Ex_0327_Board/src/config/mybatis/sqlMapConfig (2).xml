@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- DB접속 및 앞으로 사용할 mapper를 정의하는 설정파일 -->
+<configuration>
+	<!-- mapper에서 사용할 클래스 타입에 대한 별칭 -->
+	<typeAliases>
+		<typeAlias type="vo.BoardVO" alias="board"/>
+	</typeAliases>
+	<environments default="">
+		<environment id="">
+			<transactionManager type="JDBC" />
+			<dataSource type="JNDI">
+				<property name="data_source" 
+				value="java:comp/env/jdbc/oracle_test" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!-- mapper가 존재하지 않으면 미리 선언도 불가능한 코드 무조건 존재해야함 -->
+		<!--<mapper resource="config/mybatis/mapper/sawon.xml" /> -->
+		<mapper resource="config/mybatis/mapper/board.xml" />
+	</mappers>
+</configuration>
