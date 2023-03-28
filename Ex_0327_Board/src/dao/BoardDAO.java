@@ -105,6 +105,16 @@ public class BoardDAO {
 			return res;
 		}
 		
+		// 게시글 수정
+		public int modify(BoardVO vo) {
+			SqlSession sqlSession = factory.openSession(true);
+			int res = sqlSession.insert("b.board_update", vo);
+			
+			sqlSession.close();
+			return res;
+			
+			
+		}
 		
 		
 		

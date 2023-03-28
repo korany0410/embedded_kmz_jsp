@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BoardDAO;
 import vo.BoardVO;
 
-/**
- * Servlet implementation class BoardUpdatesAction
- */
-@WebServlet("/updates.do")
-public class BoardUpdatesAction extends HttpServlet {
+
+@WebServlet("/modify.do")
+public class BoardModifyAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//인코딩
 		request.setCharacterEncoding("utf-8");
 		
+		//게시글 화면에서 비밀번호를입력하고 수정버튼을 눌렀을떄
+		//idx요청받음
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		String name = request.getParameter("name");
 		String subject = request.getParameter("subject");
@@ -33,9 +32,22 @@ public class BoardUpdatesAction extends HttpServlet {
 		vo.setName(name);
 		vo.setSubject(subject);
 		vo.setContent(content);
-
-		BoardDAO.getInstance().update(vo);
+		
+		//BoardDAO를 싱글톤으로 생성한뒤, 
+		//modify()를 호출하여 매개변수vo를 db에 반영->게시글이 수정됨
+		BoardDAO.getInstance().modify(vo);
 		response.sendRedirect("boardList.do");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

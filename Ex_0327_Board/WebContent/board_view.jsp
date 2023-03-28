@@ -14,18 +14,19 @@
 function modify( pwd ) {
 		
 		let c_pwd = document.getElementById( "c_pwd" ).value;
+		 if(c_pwd == pwd){
+			 location.href="modify.do?idx="+${vo.idx};
+			 return;
+		 }else if(c_pwd != pwd){
+			 alert("비밀번호가 맞지 않습니다.");
+			 c_pwd = "";
+			 return;
+		 }else{
+			 alert("비밀번호를 입력하세요");
+			 return;
+		 }
 		
-		if ( c_pwd == '') {
-			alert("비밀번호를 입력하세요.")	;
-			return;
-		}else if( pwd != c_pwd ){
-			alert("비밀번호가 같지 않습니다.");
-			c_pwd = '';
-			return;
-		}else( pwd == c_pwd ){
-			f.action = "modify.do";
-			f.submit();
-		}
+
 	}
 </script>
 </head>
