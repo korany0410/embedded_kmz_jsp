@@ -43,13 +43,14 @@ public class BoardDAO {
 	}
 	
 	
-	// 게시물 등록
+	// 게시물 추가 (새글 등록)
 		public int insert( BoardVO vo ) {
 			//오토커밋
 			SqlSession sqlSession = factory.openSession(true);
 			
 			//insert 메서드 사용
 			//sqlSession mapper로 전달핳 수있는 파라미터는 무조건 무조건 한개!:vo
+			//반환형은 int
 			int res = sqlSession.insert("b.board_ins",vo);
 			
 			//db접속 닫기
@@ -58,8 +59,67 @@ public class BoardDAO {
 		}
 	
 	
+	// 게시글 상세보기
+		public BoardVO selectOne(int idx) {
+			SqlSession sqlSession = factory.openSession();
+			BoardVO vo = sqlSession.selectOne("b.board_one", idx);
+			sqlSession.close();
+			
+			return vo;
+			
+		}
 	
 	
+		
+		//조회수 증가
+		public int update_readhit( int idx ) {
+			//자동 커밋
+			SqlSession sqlSession = factory.openSession(true);
+			
+			int res = sqlSession.update("b.board_update_readhit", idx);
+			
+			sqlSession.close();
+			return res;
+			
+			
+		}
 	
-	
+		
+		//댓글 처리를 위해 step값 증가
+		public int update_step(BoardVO baseVO) {
+			
+			SqlSession sqlSession = factory.openSession(true);
+			int res = sqlSession.update("b.board_update_step", baseVO);
+			sqlSession.close();
+			
+			return res;
+		}
+		
+		
+		//댓글 추가
+		public int reply(BoardVO vo) {
+			SqlSession sqlSession = factory.openSession(true);
+			int res = sqlSession.insert("b.board_reply", vo);
+			
+			sqlSession.close();
+			return res;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }

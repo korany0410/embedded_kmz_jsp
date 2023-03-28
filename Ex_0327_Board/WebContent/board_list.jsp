@@ -45,7 +45,7 @@ a:hover {
 		<tr>
 			<th width="50">번호</th>
 			<th width="90">작성자</th>
-			<th>제목</th>
+			<th width="410">제목</th>
 			<th width="100">작성일</th>
 			<th width="50">조회수</th>
 		</tr>
@@ -70,6 +70,7 @@ a:hover {
 
 		</c:forEach>
 
+		<!-- 새글쓰기 버튼 -->
 		<tr>
 			<td class="c" colspan="5" align="center" style="cursor:pointer;">
 				◀&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;  ▶

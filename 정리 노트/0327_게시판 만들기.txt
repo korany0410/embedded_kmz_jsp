@@ -86,6 +86,70 @@ Ex_0327_Board
 	
 
 
+====================================
+조회수 증가시키기
+
+
+1. view.do 에서 조회수 증가 메서드 실행
+	int res = dao.update_readhit( idx );
+	메서드를 dao에서 만들기
+
+
+2. dao 에서 조회수 증가 메서드 만들기
+	
+3. mapper "board_update_readhit" 
+	4) 조회수 증가
+
+	*새로고침해도 조회수가 오르지 않게 해줘야함 
+	-> session을 활용!!
+	
+4. view.do 상세보기 서블릿으로 와서 조회수 관리를 위한 세션 영역 만들기
+
+5. list.do로 넘어와서 세션에 기록되어있는 check정보 삭제
+	request.getSession().removeAttribute("check");
+	
+
+
+==================================
+댓글
+1. reply_form.jsp --> insert_form.jsp복사하기
+
+	누구의 댓글인지 알기 위해서 idx를 넘김
+	hidden으로 숨겨놓기
+
+	f.action = "reply.do";로 보내기
+
+2. "reply.do" 댓글처리 서블릿 만드릭
+	넘어온 파라미터 모두 받기
+	
+
+3. 기준글 idx를 통해 댓글을 달고싶은 원본글의 정보 얻어오기
+
+	 *기준글의 step값 보다 큰 값들에게
+	미리  step 값을 +1씩 늘려놓기
+
+
+4. DAO에서 update_step 만들기
+	board_update_step(mapper)로 넘기기
+	
+5.  5) mapper에서 기준글의 step보다 큰 step값을 찾아서 +1처리 
+	
+6. 서블릿에서 댓글과 관련없는 게시물을 보여주기 위해 정보를 vo에 저장
+	//댓글이 들어갈 위치 선정
+	
+7. dao에서 댓글추가 함수(reply ) 만들기
+
+8. mapper에서 6) board_reply만들기
+	
+
+
+
+
+
+
+
+
+
 
 
 
