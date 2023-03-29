@@ -6,60 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Board</title>
+<!-- 외부 스타일시트 참조 링크  -->
+<link rel="stylesheet" href="css/table.css">
+
 </head>
 
 <style>
-* {
-	margin: 0;
-	padding: 0;
-}
 
-caption {
-	margin-bottom: 5px;
-	color: gray;
-}
-
-table {
-	border-collapse: collapse;
-}
-
-th {
-	padding: 5px 0 5px 0;
-	background-color: navy;
-	color: white;
-	border-color: white;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-.td {
-	padding-left: 5px;
-}
-
-td a {
-	margin-top: 10px;
-	padding: 10px 0 10px 0;
-}
-
-a:hover {
-	font-weight: bold;
-}
-
-.c {
-	position: relative;
-	padding: 3px 0 3px 0;
-	color: gray;
-}
-
-#reg {
-	position: absolute;
-	width: 49px;
-	right: 1px;
-	top: 2px;
-}
 </style>
 <body>
 	<table border="1" style="margin: 0 auto;" width="700">

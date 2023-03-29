@@ -41,6 +41,20 @@ public class BoardDAO {
 			return list;
 		}
 		
+		// 게시물 작성 (새글 등록)
+		public int insert( BoardVO vo) {
+			SqlSession sqlSession = factory.openSession(true);
+			
+			//insert메서드 사용
+			//sqlSession mapper로 전달핳 수있는 파라미터는 무조건 무조건 한개!:vo
+			//반환형은 int
+			int res = sqlSession.insert("b.board_insert",vo);
+			
+			sqlSession.close();
+			return res;
+
+		}
+		
 		
 		
 		

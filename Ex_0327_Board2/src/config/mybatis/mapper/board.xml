@@ -11,9 +11,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 게시물 리스트 조회 -->
 	<select id="board_list" resultType="board">
-		select * from board order By regdate desc
+		select * from board order By
+		regdate desc
 	</select>
 
+	<!-- 새 글 작성 -->
+	<insert id="board_insert" parameterType="board">
+		insert into board
+		values(seq_board_idx.nextVal,
+			#{name},
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			0,
+			seq_board_idx.currVal,
+			0,
+			0,
+			0
+		)
+
+	</insert>
 
 
 
