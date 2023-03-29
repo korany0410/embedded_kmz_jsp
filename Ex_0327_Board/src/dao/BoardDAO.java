@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,12 +30,28 @@ public class BoardDAO {
 	
 	}
 	
-	//전체 게시물 조회
-	public List<BoardVO> selectList(){
+	// 전체 게시물 조회
+//	public List<BoardVO> selectList(){
+//		//매퍼로 접근 전체목록조회 요청
+//		SqlSession sqlSession = factory.openSession();
+//		//여러개의 목록을 가져올것을 요청
+//		List<BoardVO> list = sqlSession.selectList("b.board_list");
+//		
+//		//반드시 닫아주기
+//		sqlSession.close();
+//		
+//		return list;
+//	}
+	
+	// ==>
+	// 페이징 처리를 포함한 전체 게시물 조회
+	// map을 파라미터로 보내보기
+	public List<BoardVO> selectList( HashMap<String, Integer> map ){
 		//매퍼로 접근 전체목록조회 요청
 		SqlSession sqlSession = factory.openSession();
 		//여러개의 목록을 가져올것을 요청
-		List<BoardVO> list = sqlSession.selectList("b.board_list");
+		// mapper에선 패키지명까지 기술을 해야함 (패키지경로 : java.util.HashMap)
+		List<BoardVO> list = sqlSession.selectList("b.board_list_condition", map);
 		
 		//반드시 닫아주기
 		sqlSession.close();
@@ -108,12 +125,19 @@ public class BoardDAO {
 		// 게시글 수정
 		public int modify(BoardVO vo) {
 			SqlSession sqlSession = factory.openSession(true);
-			int res = sqlSession.insert("b.board_update", vo);
+			int res = sqlSession.update("b.board_modify", vo);
 			
 			sqlSession.close();
 			return res;
 			
-			
+		}
+		
+		//게시물 삭제인척 업데이트
+		public int update(int idx) {
+			SqlSession sqlSession = factory.openSession(true);
+			int res = sqlSession.update("b.del_update", idx);
+			sqlSession.close();
+			return res;
 		}
 		
 		

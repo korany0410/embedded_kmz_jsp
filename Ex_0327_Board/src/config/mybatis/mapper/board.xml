@@ -3,51 +3,75 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="b">
-	<select id="board_list" resultType="board">
-		select * from board order By REF desc, STEP
+
+	<!-- 페이지별 게시물 조회 -->
+	<!-- mapper에선  parameterType에 패키지 경로까지 모두 지정해줘야한다!! "java.util.HashMap" -->
+	<select id="board_list_condition" resultType="board" parameterType="java.util.HashMap">
+		select * from 
+		(select RANK() OVER(order by REF desc, STEP) NO, b.*
+		from(select*from board) b )
+		where NO between #{start} and #{end}
+		<!--
+		여기에서 key값인 "start","end"를 가져온것!!"
+		map.put("start", start); 
+		map.put("end", end); 
+		 -->
 	</select>
 	
+	<!-- 새글작성 -->
 	<insert id="board_ins" parameterType="board">
-		insert into board values(seq_board_idx.nextVal,#{name},#{subject},#{content},#{pwd},#{ip},sysdate,0,seq_board_idx.currVal,0,0)
+		insert into board
+		values(seq_board_idx.nextVal,#{name},#{subject},#{content},#{pwd},#{ip},sysdate,0,seq_board_idx.currVal,0,0, del_info)
 	</insert>
-	
+
 	<!-- 게시글 상세보기 -->
 	<select id="board_one" resultType="board" parameterType="int">
-		select * from board where idx=#{idx}	
+		select *
+		from board where idx=#{idx}
 	</select>
-	
+
 	<!-- 조회수 증가 -->
 	<update id="board_update_readhit" parameterType="int">
-			update board set readhit = readhit + 1
-			where idx=#{idx}
+		update board set readhit = readhit + 1
+		where idx=#{idx}
 	</update>
 	<!-- 기준글의 step보다 큰 step값을 찾아서 +1처리 -->
 	<update id="board_update_step" parameterType="board">
-		update BOARD set STEP = STEP+1
+		update BOARD set
+		STEP = STEP+1
 		where ref=#{ref} and step > #{step}
 	</update>
-	
-	
-	<!-- 댓글작성  -->
-	<insert id ="board_reply" parameterType="board">
-		insert into board values(seq_board_idx.nextVal,
-#{name},		
-#{subject},
-#{content},
-#{pwd},
-#{ip},
-sysdate, 0, #{ref},
-#{step},
-#{depth})
-	</insert>
-		<update id="board_update" parameterType="board">
-			update board set name = #{name}, subject = #{subject}, content=#{content}, regdate = sysdate
-			where idx=#{idx}		
-		</update>
-		
-		
 
-	
+
+	<!-- 댓글작성 -->
+	<insert id="board_reply" parameterType="board">
+		insert into board
+		values(seq_board_idx.nextVal,
+		#{name},
+		#{subject},
+		#{content},
+		#{pwd},
+		#{ip},
+		sysdate, 0, #{ref},
+		#{step},
+		#{depth},
+		0 --del_info
+		)
+	</insert>
+
+	<!-- 게시글 수정 -->
+	<update id="board_modify" parameterType="board">
+		update board set name = #{name}, subject = #{subject}, content=#{content},
+		regdate = sysdate
+		where idx=#{idx}
+	</update>
+
+	<!-- 게시글 삭제(처럼 업데이트) -->
+	<update id="del_update" parameterType="int">
+		update board set del_info = -1
+		where idx=#{idx}
+	</update>
+
 </mapper>
 
 

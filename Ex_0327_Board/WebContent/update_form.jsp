@@ -16,7 +16,7 @@
 		//제목,이름,내용,비밀번호에 대한 유효성 체크 했다고 치고
 		
 		
-		f.action="updates.do";
+		f.action="modify.do";
 		f.method="get";
 		f.submit();
 	}

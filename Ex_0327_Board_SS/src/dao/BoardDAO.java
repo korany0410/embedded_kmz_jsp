@@ -81,7 +81,7 @@ public class BoardDAO {
 	
 	public int update(BoardVO vo) {
 		SqlSession sqlSession = factory.openSession(true);
-		int res = sqlSession.insert("b.board_update", vo);
+		int res = sqlSession.insert("b.board_modify", vo);
 		sqlSession.close();
 		
 		return res;

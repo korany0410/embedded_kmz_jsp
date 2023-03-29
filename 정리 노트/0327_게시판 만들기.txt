@@ -141,7 +141,14 @@ Ex_0327_Board
 
 8. mapper에서 6) board_reply만들기
 	
+=======================================
+삭제
 
+먼저,
+--게시물 삭제 여부를 판단하기 위해 게시판테이블 db에 컬럼을 추가
+alter table BOARD add(del_info NUMBER(2));
+
+ajax를 사용해서 삭제
 
 
 

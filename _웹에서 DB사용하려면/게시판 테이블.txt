@@ -18,6 +18,10 @@ create table board(
 	depth NUMBER(2)	--댓글의 깊이(수평)	
 );
 
+--게시물 삭제 여부를 판단하기 위해 게시판테이블 db에 컬럼을 추가
+alter table BOARD add(del_info NUMBER(2));
+
+
 
 --샘플 데이터 (메인글)
 insert into BOARD values(
@@ -70,8 +74,15 @@ commit;
 --게시판 조회
 select * from BOARD order by REF desc, STEP;
 
+--페이징 처리가 가능한 게시판 조회
+select * from 
+(select RANK() OVER(order by REF desc, STEP) NO, b.*
+from(select*from board) b )
+where NO between 1 and 10;
 
 
+
+============================================================================
 --게시글 업로드 구조
 idx (내림차순)	ref	step(오름차순) 			depth
 
