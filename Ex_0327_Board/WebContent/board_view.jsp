@@ -22,13 +22,10 @@
 
 	//수정
 	function modify( pwd ) {
-		
-		let aa = ${vo.idx};
-		alert(aa);
-		
+	
 		let c_pwd = document.getElementById( "c_pwd" ).value;
 		 if(c_pwd == pwd){
-			 location.href="update.do?idx=${vo.idx}";
+			 location.href="update.do?idx=${vo.idx}&page=${page}&search=${search}&search_text=${search_text}";
 			 return;
 		 }else if(c_pwd != pwd){
 			 alert("비밀번호가 맞지 않습니다.");
@@ -84,7 +81,6 @@
 </head>
 <body>
 	<form name="f">
-
 		<table border="1" style="margin: 0 auto;" width="600">
 			<caption>작성글</caption>
 			<tr>
@@ -120,7 +116,9 @@
 				<td colspan="2">
 					<!-- 목록으로 돌아가기 -->
 					<!--목록으로 돌아와도 해당페이지를 유지 시키기위해  -->
-					<img src="img/btn_list.gif" onclick="location.href='list.do?page=${param.page}&search=${param.search}&search_text=${param.search_text}'" style="cursor: pointer;">	
+					<img src="img/btn_list.gif"
+						onclick="location.href='list.do?page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
+						style="cursor: pointer;">
 
 					<!-- 댓글이 0일때만 댓글 버튼img를 보여주기 -->
 					<c:if test="${vo.depth eq 0 }">

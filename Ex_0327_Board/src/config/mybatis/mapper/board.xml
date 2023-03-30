@@ -93,9 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- prefixOverrides="or|and" : 쿼리문에 필요없는 or나 and를 자동으로 지워줌 -->
 		
 		<!-- select count(*) from board where -->
-		 <!-- 유사검색 name LIKE '%홍길동%'  -->
-		  <!-- or subject LIKE '%제목%'  -->
-		   <!--or content LIKE '%내용%'  -->
+	    <!-- 유사검색 name LIKE '%홍길동%'  -->
+		<!-- or subject LIKE '%제목%'  -->
+		<!--or content LIKE '%내용%'  -->
 	<select id="board_count" resultType="int" parameterType="java.util.HashMap">
 		select count(*) from board 
 		<trim prefix="where" prefixOverrides="or|and"> 

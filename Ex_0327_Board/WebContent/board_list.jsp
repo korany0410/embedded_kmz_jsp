@@ -107,10 +107,7 @@ a:hover {
 					<!-- depth가 0이 아니면 댓글 -->
 					<c:if test="${vo.depth ne 0 }">└</c:if>
 					<c:if test="${vo.del_info ne -1 }">
-						<a href="view.do?idx=${vo.idx}
-										&page=${param.page}
-										&search=${param.search}
-										&search_text=${param.search_text}">${ vo.subject}</a>
+						<a href="view.do?idx=${vo.idx}&page=${page}&search=${search}&search_text=${search_text}">${ vo.subject}</a>
 					</c:if>
 					<c:if test="${vo.del_info eq -1 }">
 						<font color="gray">이미 삭제된 게시글입니다</font>

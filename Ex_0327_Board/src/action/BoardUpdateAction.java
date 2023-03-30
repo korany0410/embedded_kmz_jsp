@@ -26,6 +26,9 @@ public class BoardUpdateAction extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		
 		//받아온 idx에 해당되는 게시글 한건 조회
 		BoardDAO dao = BoardDAO.getInstance();
@@ -33,6 +36,9 @@ public class BoardUpdateAction extends HttpServlet {
 		
 		
 		request.setAttribute("vo", vo);
+		request.setAttribute("page", page);
+		request.setAttribute("search", search);
+		request.setAttribute("search_text", search_text);
 		RequestDispatcher disp = request.getRequestDispatcher("update_form.jsp");
 		disp.forward(request, response);
 	}

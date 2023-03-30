@@ -22,6 +22,9 @@ public class BoardModifyAction extends HttpServlet {
 		
 		//게시글 화면에서 비밀번호를입력하고 수정버튼을 눌렀을떄
 		//idx요청받음
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		String name = request.getParameter("name");
 		String subject = request.getParameter("subject");
@@ -33,10 +36,11 @@ public class BoardModifyAction extends HttpServlet {
 		vo.setSubject(subject);
 		vo.setContent(content);
 		
+		String addr = String.format("list.do?page=%s&search=%s&search_text=%s", page,search,search_text);
 		//BoardDAO를 싱글톤으로 생성한뒤, 
 		//modify()를 호출하여 매개변수vo를 db에 반영->게시글이 수정됨
 		BoardDAO.getInstance().modify(vo);
-		response.sendRedirect("list.do");
+		response.sendRedirect(addr);
 		
 		
 		
