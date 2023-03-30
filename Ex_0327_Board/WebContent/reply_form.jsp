@@ -41,8 +41,10 @@
 <body>
 	<!-- 폼태그에 이름주기 -->
 	<form name="f" >
-		<!--  누구의 댓글인지 알기 위해서 idx를 넘김 hidden으로 숨겨놓기-->
+		<!--  누구의 댓글인지 알기 위해서 idx,page의 정보를 reply.do로 넘김 hidden으로 숨겨놓기-->
 		<input type="hidden" name="idx" value="${param.idx}">
+		<input type="hidden" name="page" value="${param.page}">
+		
 	
 		<table border="1" width="700" align="center">
 			<caption>댓글 등록하기</caption>

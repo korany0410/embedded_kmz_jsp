@@ -60,6 +60,24 @@ a:hover {
 	top: 2px;
 }
 </style>
+<script type="text/javascript">
+	function search() {
+		//조회 카테고리 검색 
+		let search = document.getElementById("search").value;
+		
+		//검색어 조회
+		let search_text = document.getElementById("search_text").value.trim();
+		
+		//카테고리가 all(전체보기)로 지정되어있지 않은 경우라면 반드시 검색어가 입력되어있어야한다
+		if(search != 'all' && search_text == ""){
+			alert("검색어를 입력하세요");
+			return;
+		}
+		//검색카테고리, 검색어, 페이지정보를 list.do에게 전달
+		location.href="list.do?search="+search+
+				"&search_text="+encodeURIComponent(search_text);
+	}
+</script>
 <body>
 	<table border="1" style="margin: 0 auto;" width="700">
 		<caption>&lt;&nbsp;게시판&nbsp;&gt;</caption>
@@ -89,7 +107,10 @@ a:hover {
 					<!-- depth가 0이 아니면 댓글 -->
 					<c:if test="${vo.depth ne 0 }">└</c:if>
 					<c:if test="${vo.del_info ne -1 }">
-						<a href="view.do?idx=${vo.idx}">${ vo.subject}</a>
+						<a href="view.do?idx=${vo.idx}
+										&page=${param.page}
+										&search=${param.search}
+										&search_text=${param.search_text}">${ vo.subject}</a>
 					</c:if>
 					<c:if test="${vo.del_info eq -1 }">
 						<font color="gray">이미 삭제된 게시글입니다</font>
@@ -102,10 +123,30 @@ a:hover {
 
 		</c:forEach>
 
+		<!-- 검색기능 -->
+			<tr>
+				<td colspan="5" align="center">
+					<div>
+						<select id="search">
+							<option value="all">전체보기</option>
+							<option value="subject">제목</option>
+							<option value="name">작성자</option>
+							<option value="content">내용</option>
+							<option value="name_subject_content">제목+작성자+내용</option>
+						</select>
+						
+						<input id="search_text"><!-- 검색어 입력창 -->
+						<input type="button" value="검색" onclick="search();">
+					</div>
+				</td>
+			</tr>
+
+
+
 		<!-- 새글쓰기 버튼 -->
 		<tr>
-			<td class="c" colspan="5" align="center" style="cursor: pointer;">
-				◀&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp; ▶
+			<td class="c"  colspan="5" align="center" style="cursor: pointer;">
+				${pageMenu}
 
 				<img id="reg" src="img/btn_reg.gif" onclick="location.href='insert_form.jsp'"
 					style="cursor: pointer;">

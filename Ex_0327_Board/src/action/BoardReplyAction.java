@@ -25,6 +25,8 @@ public class BoardReplyAction extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		//넘어온 파라미터 모두 받기
+		//페이지 까지 jsp에서 hidden으로 넘어옴
+		String page = request.getParameter("page");
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		String name = request.getParameter("name");
 		String subject = request.getParameter("subject");
@@ -54,7 +56,7 @@ public class BoardReplyAction extends HttpServlet {
 		vo.setDepth(baseVO.getDepth() +1 );
 		
 		dao.reply(vo);
-		response.sendRedirect("list.do");
+		response.sendRedirect("list.do?page="+page);
 		
 	}
 

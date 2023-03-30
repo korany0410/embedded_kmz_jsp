@@ -17,7 +17,7 @@
 <script type="text/javascript">
 	//댓글 폼으로 이동
 	function reply() {
-		location.href = "reply_form.jsp?idx=${vo.idx}";
+		location.href = "reply_form.jsp?idx=${vo.idx}&page=${param.page}";
 	}
 
 	//수정
@@ -70,8 +70,9 @@
 			}else{
 				alert("삭제 실패");
 			}
-			//list.do에서 조회를 처음부터 다시한다
-			location.href="list.do";
+			//list.do에서 조회를 처음부터 다시한다 
+			// 페이지도 같이 따라 다니게 한다!
+			location.href="list.do?page=${param.page}";
 		}
 		
 	}
@@ -118,8 +119,8 @@
 			<tr>
 				<td colspan="2">
 					<!-- 목록으로 돌아가기 -->
-					<img src="img/btn_list.gif" onclick="location.href='list.do'"
-						style="cursor: pointer;">
+					<!--목록으로 돌아와도 해당페이지를 유지 시키기위해  -->
+					<img src="img/btn_list.gif" onclick="location.href='list.do?page=${param.page}&search=${param.search}&search_text=${param.search_text}'" style="cursor: pointer;">	
 
 					<!-- 댓글이 0일때만 댓글 버튼img를 보여주기 -->
 					<c:if test="${vo.depth eq 0 }">

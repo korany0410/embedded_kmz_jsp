@@ -46,7 +46,7 @@ public class BoardDAO {
 	// ==>
 	// 페이징 처리를 포함한 전체 게시물 조회
 	// map을 파라미터로 보내보기
-	public List<BoardVO> selectList( HashMap<String, Integer> map ){
+	public List<BoardVO> selectList( HashMap<String, Object> map ){
 		//매퍼로 접근 전체목록조회 요청
 		SqlSession sqlSession = factory.openSession();
 		//여러개의 목록을 가져올것을 요청
@@ -141,7 +141,13 @@ public class BoardDAO {
 		}
 		
 		
-		
+		// 전체 게시글 수 알아내기
+		public int getRowTotal(HashMap<String, Object> map) {
+			SqlSession sqlSession = factory.openSession();
+			int res = sqlSession.selectOne("b.board_count", map);
+			sqlSession.close();
+			return res;
+		}
 		
 		
 		

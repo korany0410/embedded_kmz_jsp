@@ -19,6 +19,7 @@
 		f.action="modify.do";
 		f.method="get";
 		f.submit();
+		
 	}
 	
 	</script>

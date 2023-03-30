@@ -36,7 +36,7 @@ public class BoardModifyAction extends HttpServlet {
 		//BoardDAO를 싱글톤으로 생성한뒤, 
 		//modify()를 호출하여 매개변수vo를 db에 반영->게시글이 수정됨
 		BoardDAO.getInstance().modify(vo);
-		response.sendRedirect("boardList.do");
+		response.sendRedirect("list.do");
 		
 		
 		
