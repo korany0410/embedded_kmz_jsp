@@ -1,0 +1,25 @@
+
+-------세팅할 때 쓰는 코드--------------
+1. 깃 프로그램 다운로드git 
+2. 상위 폴더로 가서 마우스 클릭 후 git bash here
+
+3. git init
+4. git remote add origin https://github.com/GoodCheese92/test01.git
+5. git config user.name "korany0410"
+6. git config user.email "kkkmzxx@gmail.com"
+
+-----master => main으로 변경하는 방법 -------
+git branch -m master main
+
+---------------파일 업로드 할 때 쓰는 코드-----------------------
+7. git add *
+8. git commit -m "commit할 내용"
+9. git push origin main
+
+------------------파일 다운로드 일 때 쓰는 코드------------------
+10. git pull origin main
+
+-------------------그 외 쓰는 코드------------------------------
+11. git status
+12. git stash
+13. git clone
